@@ -3,5 +3,6 @@ package com.ssm.mapper;
 import com.ssm.model.Collect;
 
 public interface CollectMapper {
-    int insert(Collect record);
+    int insertCollSelective(Collect record);
+    Collect iscollselect(Collect collect);
 }

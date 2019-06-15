@@ -86,7 +86,7 @@ public class StudentController {
             signUp.setStudentid(student.getId());
             int a=signUpService.insert(signUp);
             if(a==1){
-                infor.setNowpeople(infor.getNowpeople()+1);
+                infor.setNowpeople(1);
                 if(infor.getNowpeople()==infor.getPeople()){
                     infor.setDraft(1);
                 }
@@ -109,13 +109,10 @@ public class StudentController {
     @ResponseBody
     @RequestMapping("update")
     public String update(@RequestBody Student student){
-        School school=new School();
-        if(StringUtils.isEmpty(student.getId())){
+        if(student!=null&&StringUtils.isEmpty(student.getId())&&StringUtils.isEmpty(student.getName())){
             return "0";
         }
         studentService.update(student);
-        //school.setName(schoolname);
-        student.setSchoolOJ(school);
         Student student1= (Student) SecurityUtils.getSubject().getPrincipal();
         student1.setName(student.getName());
         return "1";

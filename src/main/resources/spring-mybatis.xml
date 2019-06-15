@@ -15,6 +15,14 @@
     <!-- 配置数据库相关参数properties的属性：${url} -->
     <context:property-placeholder location="classpath*:jdbc.properties"/>
 
+
+    <bean class="com.ssm.util.PropertyPlaceholder">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations">
+            <value>classpath:config.properties</value>
+        </property>
+    </bean>
+
     <!-- 数据库连接池 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>

@@ -1,6 +1,7 @@
 package com.ssm.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.util.StringUtil;
 import com.ssm.model.*;
 import com.ssm.model.dto.PageDto;
 import com.ssm.service.*;
@@ -9,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +32,8 @@ public class AdminController {
     private MreplyService mreplyService;
     @Autowired
     private QueryschoolService queryschoolService;
+    @Autowired
+    private SignUpService signUpService;
 
     //admin主页
     @RequiresRoles("issue")
@@ -154,4 +158,17 @@ public class AdminController {
         queryschoolService.insert(queryschools);
         return "write";
     }
+    //审核
+    @ResponseBody
+    @RequestMapping("audit")
+    public int audit(Integer inforId,String stuString){
+        if(inforId!=null&& StringUtil.isNotEmpty(stuString)){
+            Student student= (Student) SecurityUtils.getSubject().getPrincipal();
+            if(signUpService.audit(inforId,student.getId(),stuString)){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
 }

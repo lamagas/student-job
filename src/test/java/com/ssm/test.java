@@ -1,14 +1,17 @@
 package com.ssm;
 
 import com.ssm.mapper.InformationMapper;
+import com.ssm.mapper.SignUpMapper;
 import com.ssm.model.Information;
 import com.ssm.model.dto.PageDto;
 import com.ssm.service.InformationService;
+import com.ssm.service.SignUpService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import com.ssm.util.PropertyPlaceholder;
 
 import java.util.List;
 
@@ -22,6 +25,10 @@ public class test {
 
     @Autowired
     private InformationMapper informationMapper;
+    @Autowired
+    private SignUpMapper signUpMapper;
+    @Autowired
+    private SignUpService signUpService;
     @Test
     public void list(){
         //PageHelper.startPage(2,3);//第一个参数的意思为：当前页数，第二个参数的意思为：每页显示多少条记录
@@ -34,4 +41,14 @@ public class test {
         List<Information> informationList=informationMapper.studentinfor();
     }
 
+    @Test
+    public void getConfig(){
+        System.out.println(PropertyPlaceholder.getProperty("auth.name"));
+    }
+
+    @Test
+    public void signtest(){
+        String aaa="9,10";
+        signUpService.audit(5,102,aaa);
+    }
 }

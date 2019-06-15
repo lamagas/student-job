@@ -35,7 +35,7 @@ public class LoginController {
     public String logout() { return "logout"; }
     //登陆
     @RequestMapping("check")
-    public String login( String name,  String password, Model model, HttpServletResponse response) {
+    public String login( String name, String password, Model model, HttpServletResponse response) {
         String error="";
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(name, password);

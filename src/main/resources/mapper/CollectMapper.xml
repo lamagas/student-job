@@ -39,4 +39,38 @@
         SELECT c_inforid, c_studentid FROM collect WHERE c_inforid= #{inforid,jdbcType=INTEGER} and c_studentid=#{studentid,jdbcType=INTEGER}
         )
     </insert>
+
+    <select id="iscollselect" parameterType="com.ssm.model.Collect" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from collect
+        where c_inforid = #{id,jdbcType=INTEGER}
+        and c_studentid = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertCollSelective" parameterType="com.ssm.model.Collect">
+        insert into collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="inforid != null">
+                inforid,
+            </if>
+            <if test="studentid != null">
+                studentid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="inforid != null">
+                #{inforid,jdbcType=INTEGER},
+            </if>
+            <if test="studentid != null">
+                #{studentid,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
 </mapper>
